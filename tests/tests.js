@@ -232,4 +232,17 @@ QUnit.test('String concatenation in field keys after dot', function(assert) {
   assert.equal(obj.a['  ab c'], 42);
 });
 
+QUnit.test('Key contains quote', function(assert){
+  var obj = parseHocon('"N.M" : 2');
+  assert.equal(Object.keys(obj).length, 1);
+  assert.equal(obj.hasOwnProperty('N.M'), true);
+  assert.equal(obj['N.M'], 2);
+});
+
+QUnit.test('Value contains single quotes and double quotes.', function(assert){
+  var obj = parseHocon('a: "hello \' world\'"');
+  assert.equal(Object.keys(obj).length, 1);
+  assert.equal(obj.a, "hello \' world\'");
+});
+
 QUnit.start();

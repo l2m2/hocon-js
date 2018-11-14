@@ -14,11 +14,14 @@
   "author": {
     "name": "Maor Rosenfeld"
   },
-  "contributors": [{
-    "name": "Maor Rosenfeld"
-  }, {
-    "name": "Gilly Barr"
-  }],
+  "contributors": [
+    {
+      "name": "Maor Rosenfeld"
+    },
+    {
+      "name": "Gilly Barr"
+    }
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/yellowblood/hocon-js/issues"
@@ -26,7 +29,7 @@
   "homepage": "https://github.com/yellowblood/hocon-js#readme",
   "dependencies": {},
   "devDependencies": {
-    "grunt": "1.0.1",
+    "grunt": "^1.0.1",
     "grunt-contrib-qunit": "1.3.0",
     "grunt-contrib-uglify": "2.2.0",
     "grunt-umd": "2.4.0"
