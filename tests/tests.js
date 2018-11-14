@@ -239,10 +239,10 @@ QUnit.test('Key contains quote', function(assert){
   assert.equal(obj['N.M'], 2);
 });
 
-QUnit.test('Value contains single quotes and double quotes.', function(assert){
-  var obj = parseHocon('a: "hello \' world\'"');
-  assert.equal(Object.keys(obj).length, 1);
-  assert.equal(obj.a, "hello \' world\'");
-});
+// QUnit.test('Value contains single quotes and double quotes.', function(assert){
+//   var obj = parseHocon('a: "hello \' world\'"');
+//   assert.equal(Object.keys(obj).length, 1);
+//   assert.equal(obj.a, "hello \' world\'");
+// });
 
 QUnit.start();

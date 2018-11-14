@@ -31,8 +31,8 @@ function parseHocon(text) {
       }
 
       if (!isEscaping && c === '"') {
-        if ((index + 1 < hoconText.length) && hoconText[index] === '"' &&
-          hoconText[index + 1] === '"') {
+        // check if met """ (multiline strings)
+        if ((index + 1 < hoconText.length) && hoconText[index] === '"' && hoconText[index + 1] === '"') {
           if (isInMultilineString) {
             setValue();
             isInMultilineString = false;
@@ -53,15 +53,16 @@ function parseHocon(text) {
 
       if (!isEscaping && !isInMultilineString && (c === '\'' || c === '"')) {
         if (isInQuotes && quotesType === c) {
-          if (isReadingValue)
+          if (isReadingValue) {
             setValue();
-          else {
+          } else {
+            currentKey = c + currentKey + c;
             isReadingValue = true;
           }
           isInQuotes = false;
           continue;
         }
-
+        
         isInQuotes = true;
         quotesType = c;
         continue;
@@ -239,12 +240,16 @@ function parseHocon(text) {
     function setValue(key, objt) {
       var key = key || currentKey;
       var objt = objt || obj;
-      var dotIndex = key.indexOf('.');
-      if (!isInArray && dotIndex > 0) {
-        var partKey = key.substring(0, dotIndex);
-        objt[partKey] = objt[partKey] || {};
-        setValue(key.substring(dotIndex + 1), objt[partKey]);
-        return;
+      if (key.charAt(0) === '\'' || key.charAt(0) === '"') {
+        key = key.substring(1, key.length-1);
+      } else {
+        var dotIndex = key.indexOf('.');
+        if (!isInArray && dotIndex > 0) {
+          var partKey = key.substring(0, dotIndex);
+          objt[partKey] = objt[partKey] || {};
+          setValue(key.substring(dotIndex + 1), objt[partKey]);
+          return;
+        }
       }
 
       if (!isInQuotes && typeof currentValue === 'string') {
@@ -320,3 +325,6 @@ function parseHocon(text) {
     return arguments[0];
   }
 };
+var obj = parseHocon('a: "hello \" world\""');
+console.log(obj);
+console.log(JSON.stringify(obj));
