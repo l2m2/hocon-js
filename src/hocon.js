@@ -325,6 +325,3 @@ function parseHocon(text) {
     return arguments[0];
   }
 };
-var obj = parseHocon('a: "hello \" world\""');
-console.log(obj);
-console.log(JSON.stringify(obj));
